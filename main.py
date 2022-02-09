@@ -83,14 +83,23 @@ cookingRsc = [
     ['Cooked Shark', 922873531501510686], ['Cooked Orca', 922873530994003989], ['Cooked Giant Squid', 922873530943680532]
     ]
 
-tailoringRsc = [    
+tailoringRsc = [['Wand',936964379080024135],
     ['Paper',936964378773831721],['Book',936964379092594718],['Ember Tome',936964378283114506],
     ['Leech Tome',936964378891264001],['Haunt Tome',936964378002071573],['Fire Staff',936964377867862048],['Ice Staff',936964378606075934],
     ['Nature Staff',936964379067437096],['Cursed Staff',936964377964322857],['Icicle Tome',936964378689957958],['Ignite Tome',936964378748674090],
     ['Drain Tome',936964378077564988],['Curse Tome',936964377867874305],['Freeze Tome',936964378337615912],['Inferno Tome',936964378568318977],
-    ['Consume Tome',936964377565876286],['Torture Tome',936964379147124786],['Blizzard Tome',936964377712676906],
-    ['Wand',936964379080024135]]
+    ['Consume Tome',936964377565876286],['Torture Tome',936964379147124786],['Blizzard Tome',936964377712676906]
+    ]
 
+
+
+tlr = {'Wand':936964379080024135,
+    'Paper':936964378773831721,'Book':936964379092594718,'Ember Tome':936964378283114506,
+    'Leech Tome':936964378891264001,'Haunt Tome':936964378002071573,'Fire Staff':936964377867862048,'Ice Staff':936964378606075934,
+    'Nature Staff':936964379067437096,'Cursed Staff':936964377964322857,'Icicle Tome':936964378689957958,'Ignite Tome':936964378748674090,
+    'Drain Tome':936964378077564988,'Curse Tome':936964377867874305,'Freeze Tome':936964378337615912,'Inferno Tome':936964378568318977,
+    'Consume Tome':936964377565876286,'Torture Tome':936964379147124786,'Blizzard Tome':936964377712676906
+    }
 
 
 baits = {
@@ -127,15 +136,15 @@ resources = {
     "Pine Log": 10,"Dead Log": 20,"Birch Log": 50,"Applewood": 115,"Willow Log": 350,"Oak Log": 475,
     "Chestnut Log": 650,"Maple Log": 1200,"Olive Log": 1800,"Palm Wood": 2600,"Magic Log":4000,
     "Accuracy Relic":3 ,"Guarding Relic":8 ,"Healing Relic":18 ,"Wealth Relic":40 ,"Power Relic":105 ,"Nature Relic":200 ,
-    "Fire Relic":425 ,"Damage Relic":900 ,"Leeching Relic":1400 ,"Experience Relic":1850 ,"Cursed Relic":2750 ,"Ice relic":3000,
+    "Fire Relic":425 ,"Damage Relic":900 ,"Leeching Relic":1400 ,"Experience Relic":1850 ,"Cursed Relic":2750 ,"Ice Relic":4120,
     "Anchovies":10,"Goldfish":20,"Mackerel":50,"Squid":115,"Sardine":375,"Eel":500,"Anglerfish":625,
     "Trout":750,"Jellyfish":900,"Trout+Jellyfish":825,"Bass":1350,"Herringbone":1700,"Bass+Herringbone":1525,"Tuna":2000,"Lobster":3500,"Sea Turtle":6500,"Lobster+SeaTurtle":5000,
     "Manta Ray":9500,"Shark":14500,"Orca":29500,"Giant Squid":55000,"Shark+Orca":22000,"Shark+Orca+GiantSquid":33000,
     "Cooked Anchovies":10,"Cooked Mackerel":50,"Cooked Squid":115,"Cooked Sardine":375,"Cooked Eel":500,"Cooked Anglerfish":30,
     "Cooked Trout":750,"Cooked Bass":1350,"Cooked Tuna":2000,"Cooked Lobster":3500,"Cooked Sea Turtle":6500,
     "Cooked Manta Ray":9500,"Cooked Shark":13500,"Cooked Orca":22500,"Cooked Giant Squid":41500,
-    "Wand":12,"Paper":1,"Book":5,"Fire Staff":10,"Nature Staff":10,"Ice Staff":10,"Cursed Staff":10,"Icicle Tome":10,"Freeze Tome":10,"Blizzard Tome":10,"Leech Tome":20,
-    "Drain Tome":20,"Consume Tome":10,"Haunt Tome":10,"Curse Tome":10,"Torture Tome":10,"Ember Tome":12,"Ignite Tome":10,"Inferno Tome":10
+    "Wand":12,"Paper":1,"Book":5,"Fire Staff":500,"Nature Staff":500,"Ice Staff":500,"Cursed Staff":500,"Icicle Tome":40,"Freeze Tome":900,"Blizzard Tome":4300,"Leech Tome":20,
+    "Drain Tome":115,"Consume Tome":2110,"Haunt Tome":28,"Curse Tome":200,"Torture Tome":2750,"Ember Tome":12,"Ignite Tome":100,"Inferno Tome":1380
     }
 
 Combat_boosts = ["NoBoost","XpRelics","XpPotion","XpRelics+XpPotion","WorldBoost","XpRelics+WorldBoost","XpPotion+WorldBoost","XpRelics+XpPotion+WorldBoost"]
@@ -154,16 +163,6 @@ boostsValues = {
 boosts = [Combat_boosts,Mining_boosts,Smithing_boosts,Woodcutting_boosts,Crafting_boosts,Fishing_boosts,Cooking_boosts,Tailoring_boosts]
 
 skill_rsc = [combatRsc,miningRsc, smithingRsc, woodcuttingRsc, craftingRsc, fishingRsc,cookingRsc,tailoringRsc]
-
-soontm = (
-    "Fire Staff","Nature Staff",
-    "Ice Staff","Cursed Staff","Icicle Tome","Freeze Tome",
-    "Blizzard Tome","Drain Tome","Consume Tome",
-    "Haunt Tome","Curse Tome","Torture Tome",
-    "Ignite Tome","Inferno Tome","Ice Relic"
-    )
-
-
 
 lvltab = [
     0,46,99,159,229,309,401,507,628,768,928,1112,1324,1567,1847,2168,2537,2961,3448,4008,4651,5389,6237,7212,8332,9618,11095,12792,14742,16982,19555,22510,25905,29805,34285,
@@ -299,7 +298,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                     xp_needed = getxp(int(curLv),int(tarLv),float(curPerc),float(tarPerc))
                     rsc_needed = math.ceil(xp_needed / mob_xp) + 1
                     rsc_needed_boosted = math.ceil(rsc_needed / bst_used)
-                    result = f'Skill : {combat_emoji} Combat' + '\n Mob : ' + f'{mob_emoji}' + mob_used + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f' Skill : {combat_emoji} Combat' + '\n Mob : ' + f'{mob_emoji}' + mob_used + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
                     
                     await ctx.send(result)
 
@@ -354,15 +353,12 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                 xp_needed = getxp(int(curLv),int(tarLv),float(curPerc),float(tarPerc))
                 rsc_needed = math.ceil(xp_needed / rsc_xp) + 1
                 rsc_needed_boosted = math.ceil(rsc_needed / bst_used)
-                if rsc_used in soontm :
-                    soontm_emoji = bot.get_emoji(937004848107356220)
-                    result = f'Those Resources will be added {soontm_emoji} . Please be patient.'
-                elif chosen_skill.lower() == "fishing" :
+                if chosen_skill.lower() == "fishing" :
                     bait_id = baits_id[rsc_used]
                     bait_emoji = bot.get_emoji(bait_id)
-                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\n Fish : {resource_emoji} ' + rsc_used + f'\n Bait : {bait_emoji} ' + baits[rsc_used] + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f' Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\n Fish : {resource_emoji} ' + rsc_used + f'\n Bait : {bait_emoji} ' + baits[rsc_used] + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
                 else :
-                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\n Resource : {resource_emoji} ' + rsc_used + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f' Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\n Resource : {resource_emoji} ' + rsc_used + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
                 
                 await ctx.send(result)
 
@@ -414,8 +410,31 @@ async def help(ctx):
     ping_msg = f'ping : Show Ping'
     calc_msg = f'calc [currentLvl] [targetLvl] [current%]* [target%]* \n     (current% and target% are optionals)'
     invite_msg = f"invite : Send Bot's Invite Link to DM"
-    help_msg = ping_msg + '\n' + calc_msg + '\n' + invite_msg
+    guide = f'guide : show a guide for tailoring skill (up to Lv. 92)'
+    help_msg = ping_msg + '\n' + calc_msg +'\n' + guide + '\n' + invite_msg
     await ctx.send(help_msg)
+
+@bot.command()
+async def guide(ctx):
+    emoji_0 = bot.get_emoji(tlr['Paper'])
+    emoji_1 = bot.get_emoji(tlr['Book'])
+    emoji_2 = bot.get_emoji(tlr['Ember Tome'])
+    emoji_3 = bot.get_emoji(tlr['Leech Tome'])
+    emoji_4 = bot.get_emoji(tlr['Haunt Tome'])
+    emoji_5 = bot.get_emoji(tlr['Icicle Tome'])
+    emoji_6 = bot.get_emoji(tlr['Ignite Tome'])
+    emoji_7 = bot.get_emoji(tlr['Drain Tome'])
+    emoji_8 = bot.get_emoji(tlr['Curse Tome'])
+    emoji_9 = bot.get_emoji(tlr['Freeze Tome'])
+    emoji_10 = bot.get_emoji(tlr['Inferno Tome'])
+    emoji_11 = bot.get_emoji(tlr['Consume Tome'])
+    emoji_12 = bot.get_emoji(tlr['Torture Tome'])
+
+    guide_msg = f'\n Lv. 1-3 : 100 {emoji_0} Papers '+f'\n Lv. 3-5 : 27 {emoji_1} Books '+f'\n Lv. 5-9 : 35 {emoji_2} Ember Tomes '+f'\n Lv. 9-15 : 62 {emoji_3} Leech Tomes '+f'\n Lv. 15-20 : 79 {emoji_4} Haunt Tomes '+f'\n Lv. 20-29 : 270 {emoji_5} Icicle Tomes '+f'\n Lv. 29-33 : 113 {emoji_6} Ignite Tomes '+f'\n Lv. 33-40 : 375 {emoji_7} Drain Tomes '+f'\n Lv. 40-60 : 5,193 {emoji_8} Curse Tomes '+f'\n Lv. 60-68 : 2,501 {emoji_9} Freeze Tomes '+f'\n Lv. 68-76 : 4,943 {emoji_10} Inferno Tomes' + f'\n Lv. 76-80 : 3,576 {emoji_11} Consume Tomes '+f'\n Lv. 80-92 : 27,567 {emoji_12} Torture Tomes'
+
+    embed=d.Embed(title="Tailoring Guide", description=guide_msg, color=0x0000FF)
+    await ctx.send(embed=embed)
+
 
 @bot.command()
 async def servers(ctx):
