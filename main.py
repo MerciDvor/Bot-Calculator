@@ -3,7 +3,6 @@ from discord.ext import commands
 from discord_components import Button, Select, SelectOption, ComponentsBot, ButtonStyle
 import math
 import os
-import ti
 
 
 invite_url = 'https://discord.com/api/oauth2/authorize?client_id=891750013774991370&permissions=139586783296&scope=bot%20applications.commands'
