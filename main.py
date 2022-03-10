@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord_components import Button, Select, SelectOption, ComponentsBot, ButtonStyle
 import math
 import os
-import time
+import ti
 
 
 invite_url = 'https://discord.com/api/oauth2/authorize?client_id=891750013774991370&permissions=139586783296&scope=bot%20applications.commands'
@@ -54,21 +54,21 @@ combatRsc=[bright_leaf,wintermist,desert,varaxite,bosses]
 miningRsc = [
     ['Tin Ore', 922854986357043280], ['Copper Ore', 922855022180577290], ['Iron Ore', 922855050156585020], ['Salt', 922855080099729429], ['Coal', 922855065990099004],
     ['Silver Ore', 922855652198592586], ['Crimsteel Ore', 922855136513126460], ['Gold Ore', 922855152073981952], ['Pink Salt', 922855174563831829], ['Mythan Ore', 922855187343884341],
-    ['Sandstone', 922855639816994836], ['Cobalt Ore', 922855201956823080], ['Varaxium', 922855217937133568], ['Black Salt', 922855247943204865]
+    ['Sandstone', 922855639816994836], ['Cobalt Ore', 922855201956823080], ['Varaxium', 922855217937133568], ['Black Salt', 922855247943204865], ['Magic Ore', 951258039535673375]
     ]
 smithingRsc = [
     ['Bronze Bar', 922855760193531904], ['Iron Bar', 922855781030842409], ['Steel Bar', 922855918633377802], ['Crimsteel Bar', 922855814669156442], ['Silver Bar', 922855844989784074],
-    ['Gold Nugget', 922865224091070555], ['Gold Bar', 922855856901586994], ['Mythan Bar', 922855882117775360], ['Cobalt Bar', 922855936161349653], ['Varaxite Bar', 922855948719108126]
-    ]
+    ['Gold Nugget', 922865224091070555], ['Gold Bar', 922855856901586994], ['Mythan Bar', 922855882117775360], ['Cobalt Bar', 922855936161349653], ['Varaxite Bar', 922855948719108126],
+    ['Magic Bar', 951240793153216563] ]
 woodcuttingRsc = [
     ['Pine Log', 922856057909420072], ['Dead Log', 922856079233269780], ['Birch Log', 922856103849623702], ['Applewood', 922856116017299466], ['Willow Log', 922856157587058688],
-    ['Oak Log', 922856175345754163], ['Chestnut Log', 922856194002001960], ['Maple Log', 922856235978588161], ['Olive Log', 922856248985145374], ['Palm Wood', 922856261052149761],
-    ['Magic Log', 937002915716005929]
+    ['Oak Log', 922856175345754163], ['Chestnut Log', 922856194002001960], ['Maple Log', 922856235978588161], ['Olive Log', 922856248985145374],['Magic Log', 937002915716005929],
+    ['Palm Wood', 922856261052149761]
     ]
 craftingRsc = [
     ['Accuracy Relic', 922857047014395904], ['Guarding Relic', 922857046926327899], ['Healing Relic', 922871203033649222], ['Wealth Relic', 922871202773618768],
     ['Power Relic', 922871202907828254], ['Nature Relic', 922871202979135531], ['Fire Relic', 922857046913716286], ['Damage Relic', 922857046762721281],
-    ['Leeching Relic', 922871203079794698], ['Experience Relic', 922871203130134528], ['Cursed Relic', 922857046934708235],["Ice Relic",936964378517975040]
+    ['Leeching Relic', 922871203079794698], ['Experience Relic', 922871203130134528],["Ice Relic",936964378517975040], ['Cursed Relic', 922857046934708235]
     ]
 fishingRsc = [
     ['Anchovies', 922873492137992222], ['Goldfish', 922873492536442940], ['Mackerel', 922873492821672027], ['Squid', 922873493312376862], ['Sardine', 922873493060743189],
@@ -84,16 +84,17 @@ cookingRsc = [
     ]
 
 tailoringRsc = [['Wand',936964379080024135],
-    ['Paper',936964378773831721],['Book',936964379092594718],['Ember Tome',936964378283114506],
-    ['Leech Tome',936964378891264001],['Haunt Tome',936964378002071573],['Fire Staff',936964377867862048],['Ice Staff',936964378606075934],
-    ['Nature Staff',936964379067437096],['Cursed Staff',936964377964322857],['Icicle Tome',936964378689957958],['Ignite Tome',936964378748674090],
-    ['Drain Tome',936964378077564988],['Curse Tome',936964377867874305],['Freeze Tome',936964378337615912],['Inferno Tome',936964378568318977],
-    ['Consume Tome',936964377565876286],['Torture Tome',936964379147124786],['Blizzard Tome',936964377712676906]
+    ['Paper',936964378773831721],['Book',936964379092594718],
+    ['Ember Tome',936964378283114506],['Leech Tome',936964378891264001],['Icicle Tome',936964378689957958],
+    ['Fire Staff',936964377867862048],['Ice Staff',936964378606075934],
+    ['Nature Staff',936964379067437096],['Cursed Staff',936964377964322857],
+    ['Haunt Tome',936964378002071573],
+    ['Ignite Tome',936964378748674090],['Drain Tome',936964378077564988],['Freeze Tome',936964378337615912],['Curse Tome',936964377867874305],
+    ['Inferno Tome',936964378568318977],['Consume Tome',936964377565876286],['Blizzard Tome',936964377712676906],['Torture Tome',936964379147124786]
     ]
 
 
-
-tlr = {'Wand':936964379080024135,
+tlr = {'Wand':936964379080024135,'Magic Essence':951240829312311296,
     'Paper':936964378773831721,'Book':936964379092594718,'Ember Tome':936964378283114506,
     'Leech Tome':936964378891264001,'Haunt Tome':936964378002071573,'Fire Staff':936964377867862048,'Ice Staff':936964378606075934,
     'Nature Staff':936964379067437096,'Cursed Staff':936964377964322857,'Icicle Tome':936964378689957958,'Ignite Tome':936964378748674090,
@@ -126,25 +127,43 @@ skills_id = {
     'Sailing':937013045404786758,
     'Tailoring':937013045488648252
     }
+tlr_ess = {#Tome : [ess_amount,relic_type,relic_emoji_id]
+       'Ember Tome':[1,"Fire Relic",922857046913716286],
+       'Leech Tome':[1,"Nature Relic",922871202979135531],
+       'Haunt Tome':[1,"Cursed Relic",922857046934708235],
+       'Fire Staff':[25,"Fire Relic",922857046913716286],
+       'Ice Staff':[25,"Ice Relic",936964378517975040], 
+       'Nature Staff':[25,"Nature Relic",922871202979135531],
+       'Cursed Staff':[25,"Cursed Relic",922857046934708235],
+       'Icicle Tome':[1,"Ice Relic",936964378517975040],
+       'Ignite Tome':[5,"Fire Relic",922857046913716286], 
+       'Drain Tome':[3,"Nature Relic",922871202979135531],
+       'Curse Tome':[3,"Cursed Relic",922857046934708235],
+       'Freeze Tome':[3,"Ice Relic",936964378517975040],
+       'Inferno Tome':[10,"Fire Relic",922857046913716286], 
+       'Consume Tome':[6,"Nature Relic",922871202979135531],
+       'Torture Tome':[6,"Cursed Relic",922857046934708235],
+       'Blizzard Tome':[6,"Ice Relic",936964378517975040]
+   }
 
 
 resources = {
     "Tin Ore": 10, "Copper Ore": 10, "Iron Ore" : 50,"Salt": 80, "Coal": 115, "Silver Ore": 135, "Crimsteel Ore": 350,
-    "Gold Ore": 400, "Pink Salt" : 500, "Mythan Ore": 650, "Sandstone": 1100, "Cobalt Ore": 1200, "Varaxium": 1800, "Black Salt": 2500,
+    "Gold Ore": 400, "Pink Salt" : 500, "Mythan Ore": 650, "Sandstone": 1100, "Cobalt Ore": 1200, "Varaxium": 1800, "Black Salt": 2500, "Magic Ore": 3200,
     "Bronze Bar" : 5, "Iron Bar" : 14,"Steel Bar" : 20 , "Crimsteel Bar" : 130,
-    "Silver Bar" : 1000,"Gold Bar" : 20000,"Gold Nugget" : 60,"Mythan Bar" : 5000,"Cobalt Bar" : 15000,"Varaxite Bar" : 20000,
+    "Silver Bar" : 1000,"Gold Bar" : 20000,"Gold Nugget" : 60,"Mythan Bar" : 5000,"Cobalt Bar" : 15000,"Varaxite Bar" : 20000,"Magic Bar" : 25000,
     "Pine Log": 10,"Dead Log": 20,"Birch Log": 50,"Applewood": 115,"Willow Log": 350,"Oak Log": 475,
-    "Chestnut Log": 650,"Maple Log": 1200,"Olive Log": 1800,"Palm Wood": 2600,"Magic Log":4000,
+    "Chestnut Log": 650,"Maple Log": 1200,"Olive Log": 1800,"Magic Log": 2600,"Palm Wood": 4000,
     "Accuracy Relic":3 ,"Guarding Relic":8 ,"Healing Relic":18 ,"Wealth Relic":40 ,"Power Relic":105 ,"Nature Relic":200 ,
-    "Fire Relic":425 ,"Damage Relic":900 ,"Leeching Relic":1400 ,"Experience Relic":1850 ,"Cursed Relic":2750 ,"Ice Relic":4120,
+    "Fire Relic":425 ,"Damage Relic":900 ,"Leeching Relic":1400 ,"Experience Relic":1850 ,"Ice Relic":2750 ,"Cursed Relic":4120,
     "Anchovies":10,"Goldfish":20,"Mackerel":50,"Squid":115,"Sardine":375,"Eel":500,"Anglerfish":625,
     "Trout":750,"Jellyfish":900,"Trout+Jellyfish":825,"Bass":1350,"Herringbone":1700,"Bass+Herringbone":1525,"Tuna":2000,"Lobster":3500,"Sea Turtle":6500,"Lobster+SeaTurtle":5000,
     "Manta Ray":9500,"Shark":14500,"Orca":29500,"Giant Squid":55000,"Shark+Orca":22000,"Shark+Orca+GiantSquid":33000,
     "Cooked Anchovies":10,"Cooked Mackerel":50,"Cooked Squid":115,"Cooked Sardine":375,"Cooked Eel":500,"Cooked Anglerfish":30,
     "Cooked Trout":750,"Cooked Bass":1350,"Cooked Tuna":2000,"Cooked Lobster":3500,"Cooked Sea Turtle":6500,
     "Cooked Manta Ray":9500,"Cooked Shark":13500,"Cooked Orca":22500,"Cooked Giant Squid":41500,
-    "Wand":12,"Paper":1,"Book":5,"Fire Staff":500,"Nature Staff":500,"Ice Staff":500,"Cursed Staff":500,"Icicle Tome":40,"Freeze Tome":900,"Blizzard Tome":4300,"Leech Tome":20,
-    "Drain Tome":115,"Consume Tome":2110,"Haunt Tome":28,"Curse Tome":200,"Torture Tome":2750,"Ember Tome":12,"Ignite Tome":100,"Inferno Tome":1380
+    "Wand":12,"Paper":1,"Book":5,"Fire Staff":500,"Nature Staff":500,"Ice Staff":500,"Cursed Staff":500,"Icicle Tome":28,"Freeze Tome":200,"Blizzard Tome":2750,"Leech Tome":20,
+    "Drain Tome":115,"Consume Tome":2110,"Haunt Tome":40,"Curse Tome":900,"Torture Tome":4300,"Ember Tome":12,"Ignite Tome":100,"Inferno Tome":1380
     }
 
 Combat_boosts = ["NoBoost","XpRelics","XpPotion","XpRelics+XpPotion","WorldBoost","XpRelics+WorldBoost","XpPotion+WorldBoost","XpRelics+XpPotion+WorldBoost"]
@@ -213,7 +232,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
     skill_msg = await ctx.send(content='Skill :',components=[Select(
         placeholder='Select Skill !',
         options=[
-            SelectOption(label=f'Combat',value='0', emoji=bot.get_emoji(880221520121700362)),
+            SelectOption(label=f'Combat (melee/magic)',value='0', emoji=bot.get_emoji(880221520121700362)),
             SelectOption(label=f'Mining',value='1', emoji=bot.get_emoji(880221690049732638)),
             SelectOption(label=f'Smiting',value='2', emoji=bot.get_emoji(880221615374360648)),
             SelectOption(label=f'woodcutting',value='3', emoji=bot.get_emoji(880221633913163796)),
@@ -298,7 +317,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                     xp_needed = getxp(int(curLv),int(tarLv),float(curPerc),float(tarPerc))
                     rsc_needed = math.ceil(xp_needed / mob_xp) + 1
                     rsc_needed_boosted = math.ceil(rsc_needed / bst_used)
-                    result = f' Skill : {combat_emoji} Combat' + '\n Mob : ' + f'{mob_emoji}' + mob_used + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f'Skill : {combat_emoji} Combat (melee/magic)' + '\nMob : ' + f'{mob_emoji} ' + mob_used + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                     
                     await ctx.send(result)
 
@@ -356,11 +375,31 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                 if chosen_skill.lower() == "fishing" :
                     bait_id = baits_id[rsc_used]
                     bait_emoji = bot.get_emoji(bait_id)
-                    result = f' Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\n Fish : {resource_emoji} ' + rsc_used + f'\n Bait : {bait_emoji} ' + baits[rsc_used] + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nFish : {resource_emoji} ' + rsc_used + f'\nBait : {bait_emoji} ' + baits[rsc_used] + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
+                elif chosen_skill.lower() == "tailoring" :
+                    if rsc_used in tlr_ess:
+                        book_emoji = bot.get_emoji(tlr['Book'])
+                        ess_emoji = bot.get_emoji(tlr['Magic Essence'])
+                        ess_coef = tlr_ess[rsc_used][0]
+                        ess_needed = rsc_needed_boosted * ess_coef
+                        rlc_used = tlr_ess[rsc_used][1]             
+                        rlc_emoji = bot.get_emoji(tlr_ess[rsc_used][2])               
+                        result = f'Skill : {skill_emoji} ' + 'Tailoring ' + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + f'\nBooks Needed : {book_emoji}' + f' {rsc_needed_boosted:,}'+ f'\nEssences Needed : {ess_emoji}' + f' {ess_needed:,}'+ f'\nRelics Needed : {rlc_emoji}' + f' {rsc_needed_boosted:,}'
+                    elif rsc_used == 'Wand' :
+                            ess_emoji = bot.get_emoji(tlr['Magic Essence'])
+                            ess_needed = rsc_needed_boosted * 15
+                            logs_needed = rsc_needed_boosted * 2
+                            log_emoji = bot.get_emoji(922856175345754163)
+                            result = f'Skill : {skill_emoji} ' + 'Tailoring ' + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + f'\nQuantity Needed : {resource_emoji} ' + f'{rsc_needed_boosted:,}' + f'\nMagic Essences Needed : {ess_emoji} ' + f'{ess_needed:,}' + f'\nLogs Needed : {log_emoji} ' + f'{logs_needed:,}'
+                    else :
+                        result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nResource : {resource_emoji} ' + rsc_used + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                 else :
-                    result = f' Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\n Resource : {resource_emoji} ' + rsc_used + '\n Current Lvl : ' + curLv + ' ' + curPerc + '%' + '\n target Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\n Boost : ' + bst_name + '\n Quantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nResource : {resource_emoji} ' + rsc_used + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                 
                 await ctx.send(result)
+
+
+
 
 
 
@@ -397,6 +436,9 @@ async def calc(ctx,curLv,tarLv,curPerc=None,tarPerc=None):
     counter = counter + 1
     print(counter)
     update(counter)
+
+
+
 
 @bot.command()
 async def invite(ctx):
