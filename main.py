@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord_components import Button, Select, SelectOption, ComponentsBot, ButtonStyle
 import math
 import os
-
+import time
 
 invite_url = 'https://discord.com/api/oauth2/authorize?client_id=891750013774991370&permissions=139586783296&scope=bot%20applications.commands'
 
@@ -53,7 +53,7 @@ combatRsc=[bright_leaf,wintermist,desert,varaxite,bosses]
 miningRsc = [
     ['Tin Ore', 922854986357043280], ['Copper Ore', 922855022180577290], ['Iron Ore', 922855050156585020], ['Salt', 922855080099729429], ['Coal', 922855065990099004],
     ['Silver Ore', 922855652198592586], ['Crimsteel Ore', 922855136513126460], ['Gold Ore', 922855152073981952], ['Pink Salt', 922855174563831829], ['Mythan Ore', 922855187343884341],
-    ['Sandstone', 922855639816994836], ['Cobalt Ore', 922855201956823080], ['Varaxium', 922855217937133568], ['Black Salt', 922855247943204865], ['Magic Ore', 951258039535673375]
+    ['Sandstone', 922855639816994836], ['Cobalt Ore', 922855201956823080], ['Varaxium', 922855217937133568], ['Black Salt', 922855247943204865], ['Magic Ore', 951482813759242290]
     ]
 smithingRsc = [
     ['Bronze Bar', 922855760193531904], ['Iron Bar', 922855781030842409], ['Steel Bar', 922855918633377802], ['Crimsteel Bar', 922855814669156442], ['Silver Bar', 922855844989784074],
@@ -61,7 +61,7 @@ smithingRsc = [
     ['Magic Bar', 951240793153216563] ]
 woodcuttingRsc = [
     ['Pine Log', 922856057909420072], ['Dead Log', 922856079233269780], ['Birch Log', 922856103849623702], ['Applewood', 922856116017299466], ['Willow Log', 922856157587058688],
-    ['Oak Log', 922856175345754163], ['Chestnut Log', 922856194002001960], ['Maple Log', 922856235978588161], ['Olive Log', 922856248985145374],['Magic Log', 937002915716005929],
+    ['Oak Log', 922856175345754163], ['Chestnut Log', 922856194002001960], ['Maple Log', 922856235978588161], ['Olive Log', 922856248985145374],['Magic Log', 954795411913179197],
     ['Palm Wood', 922856261052149761]
     ]
 craftingRsc = [
@@ -116,15 +116,15 @@ baits_id = {
     }
 
 skills_id = {
-    'Combat':880221520121700362,
-    'Mining':880221690049732638,
-    'Smithing':880221615374360648,
-    'Woodcutting':880221633913163796,
-    'Crafting':880221589050916914,
-    'Fishing':880221548399697923,
-    'Cooking':880221572751847444,
-    'Sailing':937013045404786758,
-    'Tailoring':937013045488648252
+    'Combat':962217488479834142,
+    'Mining':962217952927698954,
+    'Smithing':945264297167175681,
+    'Woodcutting':962217565780865024,
+    'Crafting':922871203130134528,
+    'Fishing':962217539767771217,
+    'Cooking':962217512035053599,
+    'Tailoring':937013045488648252,
+    'Sailing':937013045404786758
     }
 tlr_ess = {#Tome : [ess_amount,relic_type,relic_emoji_id]
        'Ember Tome':[1,"Fire Relic",922857046913716286],
@@ -152,7 +152,7 @@ resources = {
     "Bronze Bar" : 5, "Iron Bar" : 14,"Steel Bar" : 20 , "Crimsteel Bar" : 130,
     "Silver Bar" : 1000,"Gold Bar" : 20000,"Gold Nugget" : 60,"Mythan Bar" : 5000,"Cobalt Bar" : 15000,"Varaxite Bar" : 20000,"Magic Bar" : 25000,
     "Pine Log": 10,"Dead Log": 20,"Birch Log": 50,"Applewood": 115,"Willow Log": 350,"Oak Log": 475,
-    "Chestnut Log": 650,"Maple Log": 1200,"Olive Log": 1800,"Magic Log": 2600,"Palm Wood": 4000,
+    "Chestnut Log": 650,"Maple Log": 1200,"Olive Log": 1800,"Magic Log": 3000,"Palm Wood": 3600,
     "Accuracy Relic":3 ,"Guarding Relic":8 ,"Healing Relic":18 ,"Wealth Relic":40 ,"Power Relic":105 ,"Nature Relic":200 ,
     "Fire Relic":425 ,"Damage Relic":900 ,"Leeching Relic":1400 ,"Experience Relic":1850 ,"Ice Relic":2750 ,"Cursed Relic":4120,
     "Anchovies":10,"Goldfish":20,"Mackerel":50,"Squid":115,"Sardine":375,"Eel":500,"Anglerfish":625,
@@ -231,15 +231,15 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
     skill_msg = await ctx.send(content='Skill :',components=[Select(
         placeholder='Select Skill !',
         options=[
-            SelectOption(label=f'Combat (melee/magic)',value='0', emoji=bot.get_emoji(880221520121700362)),
-            SelectOption(label=f'Mining',value='1', emoji=bot.get_emoji(880221690049732638)),
-            SelectOption(label=f'Smiting',value='2', emoji=bot.get_emoji(880221615374360648)),
-            SelectOption(label=f'woodcutting',value='3', emoji=bot.get_emoji(880221633913163796)),
-            SelectOption(label=f'Crafting',value='4', emoji=bot.get_emoji(880221589050916914)),
-            SelectOption(label=f'Fishing',value='5', emoji=bot.get_emoji(880221548399697923)),
-            SelectOption(label=f'Cooking',value='6', emoji=bot.get_emoji(880221572751847444)),
+            SelectOption(label=f'Combat (melee/magic)',value='0', emoji=bot.get_emoji(962217488479834142)),
+            SelectOption(label=f'Mining',value='1', emoji=bot.get_emoji(962217952927698954)),
+            SelectOption(label=f'Smiting',value='2', emoji=bot.get_emoji(945264297167175681)),
+            SelectOption(label=f'woodcutting',value='3', emoji=bot.get_emoji(962217565780865024)),
+            SelectOption(label=f'Crafting',value='4', emoji=bot.get_emoji(922871203130134528)),
+            SelectOption(label=f'Fishing',value='5', emoji=bot.get_emoji(962217539767771217)),
+            SelectOption(label=f'Cooking',value='6', emoji=bot.get_emoji(962217512035053599)),
             SelectOption(label=f'Tailoring',value='7', emoji=bot.get_emoji(937013045488648252)),
-            SelectOption(label=f'🚫 Cancel',value='Cancel')
+            SelectOption(label=f'Cancel',value='Cancel', emoji=bot.get_emoji(945099626447528026)),
             
             ],custom_id='SelectSkill'
     )])
@@ -254,7 +254,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
         temp_list = []
         for i in range(len(location_list)):
             temp_list.append(SelectOption(label=location_list[i],value=str(i+1)))#add locations emoji = bot.get_emoji(emoji_id)
-        temp_list.append(SelectOption(label="Cancel",value="Cancel"))
+        temp_list.append(SelectOption(label="Cancel",value="Cancel", emoji=bot.get_emoji(945099626447528026)))
         resource_msg = await ctx.send(content='Location :',components=[Select(
         placeholder='Select Location !',
         options=temp_list
@@ -272,7 +272,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
             temp_list = []
             for i in range(len(mob_list)):
                 temp_list.append(SelectOption(label=mob_list[i][0],value=str(i+1),emoji=bot.get_emoji(mob_list[i][1])))#add mobs emoji = bot.get_emoji(emoji_id)
-            temp_list.append(SelectOption(label="Cancel",value="Cancel"))
+            temp_list.append(SelectOption(label="Cancel",value="Cancel", emoji=bot.get_emoji(945099626447528026)))
             resource_msg = await ctx.send(content='Mob :',components=[Select(
             placeholder='Select Mob !',
             options=temp_list
@@ -291,7 +291,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                 temp_list1 = []
                 for i in range(len(boost_list)):
                     temp_list1.append(SelectOption(label=boost_list[i],value=str(i+1)))#add boosts emoji = bot.get_emoji(emoji_id)
-                temp_list1.append(SelectOption(label="Cancel",value="Cancel"))
+                temp_list1.append(SelectOption(label="Cancel",value="Cancel", emoji=bot.get_emoji(945099626447528026)))
                 boost_msg = await ctx.send(content='Boost :',components=[Select(
                 placeholder='Select Boost !',
                 options=temp_list1
@@ -316,7 +316,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                     xp_needed = getxp(int(curLv),int(tarLv),float(curPerc),float(tarPerc))
                     rsc_needed = math.ceil(xp_needed / mob_xp) + 1
                     rsc_needed_boosted = math.ceil(rsc_needed / bst_used)
-                    result = f'Skill : {combat_emoji} Combat (melee/magic)' + '\nMob : ' + f'{mob_emoji} ' + mob_used + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f'Skill : {combat_emoji} Combat (melee/magic)' + '\nMob : ' + f'{mob_emoji} ' + mob_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                     
                     await ctx.send(result)
 
@@ -326,7 +326,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
         temp_list = []
         for i in range(len(rsc_list)):
             temp_list.append(SelectOption(label=rsc_list[i][0],value=str(i+1),emoji=bot.get_emoji(rsc_list[i][1])))#add resources emoji = bot.get_emoji(emoji_id)
-        temp_list.append(SelectOption(label="Cancel",value="Cancel"))
+        temp_list.append(SelectOption(label="Cancel",value="Cancel", emoji=bot.get_emoji(945099626447528026)))
         resource_msg = await ctx.send(content='Resource :',components=[Select(
         placeholder='Select Resource !',
         options=temp_list
@@ -345,7 +345,7 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
             temp_list1 = []
             for i in range(len(boost_list)):
                 temp_list1.append(SelectOption(label=boost_list[i],value=str(i+1)))#add boosts emoji = bot.get_emoji(emoji_id)
-            temp_list1.append(SelectOption(label="Cancel",value="Cancel"))
+            temp_list1.append(SelectOption(label="Cancel",value="Cancel", emoji=bot.get_emoji(945099626447528026)))
             boost_msg = await ctx.send(content='Boost :',components=[Select(
             placeholder='Select Boost !',
             options=temp_list1
@@ -374,16 +374,15 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                 if chosen_skill.lower() == "fishing" :
                     bait_id = baits_id[rsc_used]
                     bait_emoji = bot.get_emoji(bait_id)
-                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nFish : {resource_emoji} ' + rsc_used + f'\nBait : {bait_emoji} ' + baits[rsc_used] + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nFish : {resource_emoji} ' + rsc_used + f'\nBait : {bait_emoji} ' + baits[rsc_used] + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                 elif chosen_skill.lower() == "tailoring" :
                     if rsc_used in tlr_ess:
                         book_emoji = bot.get_emoji(tlr['Book'])
                         ess_emoji = bot.get_emoji(tlr['Magic Essence'])
                         ess_coef = tlr_ess[rsc_used][0]
-                        ess_needed = rsc_needed_boosted * ess_coef
-                        rlc_used = tlr_ess[rsc_used][1]             
+                        ess_needed = rsc_needed_boosted * ess_coef            
                         rlc_emoji = bot.get_emoji(tlr_ess[rsc_used][2])               
-                        result = f'Skill : {skill_emoji} ' + 'Tailoring ' + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + f'\nBooks Needed : {book_emoji}' + f' {rsc_needed_boosted:,}'+ f'\nEssences Needed : {ess_emoji}' + f' {ess_needed:,}'+ f'\nRelics Needed : {rlc_emoji}' + f' {rsc_needed_boosted:,}'
+                        result = f'Skill : {skill_emoji} ' + 'Tailoring ' + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + f'\nQuantity Needed :  {book_emoji} || {rlc_emoji}' + f' {rsc_needed_boosted:,}'+ f'\nEssences Needed : {ess_emoji}' + f' {ess_needed:,}'
                     elif rsc_used == 'Wand' :
                             ess_emoji = bot.get_emoji(tlr['Magic Essence'])
                             ess_needed = rsc_needed_boosted * 15
@@ -391,9 +390,9 @@ async def selectionTest(ctx,curLv,tarLv,curPerc,tarPerc):
                             log_emoji = bot.get_emoji(922856175345754163)
                             result = f'Skill : {skill_emoji} ' + 'Tailoring ' + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + f'\nQuantity Needed : {resource_emoji} ' + f'{rsc_needed_boosted:,}' + f'\nMagic Essences Needed : {ess_emoji} ' + f'{ess_needed:,}' + f'\nLogs Needed : {log_emoji} ' + f'{logs_needed:,}'
                     else :
-                        result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nResource : {resource_emoji} ' + rsc_used + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
+                        result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                 else :
-                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nResource : {resource_emoji} ' + rsc_used + '\nCurrent Lvl : ' + curLv + ' ' + curPerc + '%' + '\nTarget Lvl : ' + tarLv + ' ' + tarPerc + '%' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
+                    result = f'Skill : {skill_emoji} ' + chosen_skill.capitalize() + f'\nResource : {resource_emoji} ' + rsc_used + '\nLvlUp : (' + curLv + ')[' + curPerc + '%] --> (' + tarLv + ')[' + tarPerc + '%]' + '\nBoost : ' + bst_name + '\nQuantity Needed : ' + f'{rsc_needed_boosted:,}'
                 
                 await ctx.send(result)
 
@@ -441,10 +440,11 @@ async def calc(ctx,curLv,tarLv,curPerc=None,tarPerc=None):
 
 @bot.command()
 async def invite(ctx):
-    e = d.Embed(title="Click The Button To Invite Me", color=0x00ff00)
-    inv = await ctx.send(embeds=[e],components=[Button(style=ButtonStyle.URL, label="Invite Me !", url=invite_url)])
-    time.sleep(5)
-    await inv.edit(embeds=[e],components=[Button(style=ButtonStyle.URL, label="Invite Me !", url=invite_url,disabled=True)])
+    ##e = d.Embed(title="Click The Button To Invite Me", color=0x00ff00)
+    #inv = await ctx.send(embeds=[e],components=[Button(style=ButtonStyle.URL, label="Invite Me !", url=invite_url)])
+    await ctx.send("Sorry, currently the bot is in 100 servers and waiting for verification to be able to join more :(.")
+    #time.sleep(5)
+    #await inv.edit(embeds=[e],components=[Button(style=ButtonStyle.URL, label="Invite Me !", url=invite_url,disabled=True)])
 
 @bot.command()
 async def help(ctx):
@@ -479,7 +479,7 @@ async def guide(ctx):
 
 @bot.command()
 async def servers(ctx):
-    tech_id = 465858376182530059
+    tech_id = 908843151005978656
     if ctx.author.id == int(tech_id) :
         guilds = list(bot.guilds)
         await ctx.send(f"Connected on {str(len(guilds))} servers:")
